@@ -1,3 +1,7 @@
+## 0.2.2
+Compile date: 2017.09.29
+* Change App icon to the one illustrated by (黑大炮)[http://weibo.com/u/5347072417]
+
 ## 0.2.1
 Compile date: 2017.09.29
 * Remove version info

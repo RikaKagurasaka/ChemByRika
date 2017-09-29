@@ -1,4 +1,6 @@
+![Icon](README/launcher.png)
 # ChemByRika
+
 An elevated third-party client or web app for Chemistry By Design
 
 # 简要说明
@@ -9,6 +11,8 @@ An elevated third-party client or web app for Chemistry By Design
 目前仅提供英文支持，内部合成路线定期发布更新。
 
 iOS系统暂无支持，可自行打包或上传至自己的服务器
+
+感谢[黑大炮](http://weibo.com/u/5347072417)绘制的应用图标
 
 # Details
 
@@ -35,3 +39,7 @@ Only ready for big screen (screen.height>432px) and small screen (screen.height<
 * You may download releases and source code.
 * You may modify or recompile source code, however must NOT remove copyright info.
 * Any re-upload of executable file or source code of original project or modified version is FORBIDDEN.
+* The App icon must NOT be used anywhere except in the original project and its executable files. 
+
+## Contributors
+* App icon by [黑大炮](http://weibo.com/u/5347072417)
