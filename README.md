@@ -42,4 +42,4 @@ Only ready for big screen (screen.height>432px) and small screen (screen.height<
 * The App icon must NOT be used anywhere except in the original project and its executable files. 
 
 ## Contributors
-* App icon by [黑大炮](http://weibo.com/u/5347072417)
+* App icon by [Black](http://weibo.com/u/5347072417)
