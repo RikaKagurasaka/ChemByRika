@@ -1,3 +1,7 @@
+## 0.2.3
+Compile date: 2017.11.11
+* Add ***doi*** and paper downloads(via sci-hub)
+
 ## 0.2.2
 Compile date: 2017.09.29
 * Change App icon to the one illustrated by (黑大炮)[http://weibo.com/u/5347072417]
