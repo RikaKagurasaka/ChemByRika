@@ -1,3 +1,8 @@
+## 0.3.0
+Compile date: 2017.12.9
+* Minified source size(using base64).
+* **Support Android7.0**
+
 ## 0.2.3
 Compile date: 2017.11.11
 * Add ***doi*** and paper downloads(via sci-hub)
