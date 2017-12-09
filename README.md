@@ -27,7 +27,8 @@ iOS系统暂无支持，可自行打包或上传至自己的服务器
 ![Image2](README/Screenshot2.png)
 
 ## Android Client
-This is packed with Webview, compiled with Android Studio.
+<del>This is packed with Webview, compiled with Android Studio.</del>
+Merged to Apache Codorva.
 
 ## Multi-device support
 Only ready for big screen (screen.height>432px) and small screen (screen.height<=432px)
