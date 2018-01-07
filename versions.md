@@ -1,3 +1,9 @@
+## 0.4.0
+Compile date:2018.01.07
+* Rollback to png previews (in order to decline network demand).
+* Change to `Material Design`.
+* Add slider controling progress.
+
 ## 0.3.0
 Compile date: 2017.12.9
 * Minified source size(using base64).

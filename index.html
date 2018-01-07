@@ -3,204 +3,349 @@
 <head>
     <script src="bootstrap/jquery.js"></script>
     <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
-    <!--<link rel="stylesheet" href="bootstrap/bootstrap-theme.min.css"> -->
+    <link rel="stylesheet" href="bootstrap/bootstrap-theme.min.css">
     <script src="bootstrap/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="src/angular-material.min.css">
+    <script src="src/angular.min.js"></script>
+    <script src="src/angular-animate.js"></script>
+    <script src="src/angular-aria.min.js"></script>
+    <script src="src/angular-messages.js"></script>
+    <script src="src/angular-material.js"></script>
+    <script src="src/waitForKeyElements.js"></script>
+    <!-- Angular Material Library -->
+
+    <!-- Your application bootstrap  -->
+
     <script src="src/timeago.js"></script>
-    <script src="preview.json"></script>
+    <!--<script src="preview.json"></script>-->
     <script src="info.js"></script>
     <link rel="Shortcut Icon" href="favicon.ico">
+    <style>
+        md-list-item.active {
+            background: #2aabd2;
+        }
 
+        .btn-info {
+            background: #2aabd2;
+        }
+    </style>
 
     <title>Chem by Rika</title>
 </head>
-<body onscroll="onscroll()">
-    <div class="input-group" style="position:fixed;top:0px;width:100%;z-index:999">
-        <span class="input-group-btn">
-            <button class="btn btn-primary" type="button" onclick="search();">
-                <span class="glyphicon glyphicon-search"></span>
-            </button>
-        </span>
-        <input type="text" class="form-control" onkeypress="EnterDown(event);" id="search" placeholder="Click the button or press Enter to search" aria-describedby="basic-addon1">
+<body ng-app="BlankApp" ng-cloak layout="column" ng-controller="AppCtrl">
+<md-toolbar whiteframe="14" style="/*position:fixed;*/z-index: 999" class="">
+    <div class="md-toolbar-tools">
 
-        <span class="input-group-btn">
-            <button class="btn btn-default" type="button" id="btn-fav" onclick="fav();">
-                <span class="glyphicon glyphicon-star"></span>
-            </button>
-            <button class="btn btn-default" type="button" onclick="random();">
-                <span class="glyphicon glyphicon-random"></span>
-            </button>
-            <button class="btn btn-default" type="button" data-toggle="modal" data-target="#copyright">
-                <span class="glyphicon glyphicon-copyright-mark"></span>
-            </button>
-            <button class="btn btn-default" type="button" onclick="history();">
-                <span class="glyphicon glyphicon-time"></span>
-            </button>
-        </span>
+        <md-button class="md-icon-button" aria-label="Search" onclick="search()">
+            <md-icon md-svg-icon="svg/ic_search_48px.svg"></md-icon>
+        </md-button>
+
+
+        <h2 flex><input type="text" class="form-control" onkeypress="EnterDown(event);" id="search"
+                        placeholder="Search"
+                        style="background-color: #00000000;border: #00000000;border-bottom:1px solid #ffffff ;color: #ffffffee">
+        </h2>
+        <!--<span class="input-group-btn">-->
+        <md-button class="md-icon-button " layout-align="right" onclick="fav();" aria-label="Favorite" id="btn-fav">
+            <md-icon md-svg-icon="svg/ic_star_24px.svg"></md-icon>
+        </md-button>
+        <!--<button class="btn btn-default" type="button" id="btn-fav" onclick="fav();">-->
+        <!--<span class="glyphicon glyphicon-star"></span>-->
+        <!--</button>-->
+        <md-button class="md-icon-button " layout-align="right" onclick="random();" aria-label="Random">
+            <md-icon md-svg-icon="svg/random.svg"></md-icon>
+        </md-button>
+        <!--<button class="btn btn-default" type="button" onclick="random();">-->
+        <!--<span class="glyphicon glyphicon-random"></span>-->
+        <!--</button>-->
+        <md-button class="md-icon-button " layout-align="right" ng-click="showAlert($event)"
+                   aria-label="Copyright Info">
+            <md-icon md-svg-icon="svg/ic_copyright_48px.svg"></md-icon>
+        </md-button>
+        <!--<button class="btn btn-default" type="button" data-toggle="modal" data-target="#copyright">-->
+        <!--<span class="glyphicon glyphicon-copyright-mark"></span>-->
+        <!--</button>-->
+        <md-button class="md-icon-button " layout-align="right" onclick="history();" aria-label="History">
+            <md-icon md-svg-icon="svg/ic_history_48px.svg"></md-icon>
+        </md-button>
+        <!--<button class="btn btn-default" type="button" onclick="history();">-->
+        <!--<span class="glyphicon glyphicon-time"></span>-->
+        <!--</button>-->
+        <!--</span>-->
     </div>
+</md-toolbar>
 
+<md-content>
+    <md-list class="list-group" id="list-all" style="position:relative;">
+    </md-list>
 
-    <div class="list-group" id="list-all" style="position:relative;">
-    </div>
-    <img style="position:fixed;top:100%;left:100%;height:auto;max-height:50%;max-width:50%;z-index:999;pointer-events:none;" class="pull-right" align="right" id="pre" />
-    <div class="modal fade" id="copyright" tabindex="-1" role="dialog" aria-labelledby="copyright">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-                    <h4 class="modal-title text-center" id="copyright-title">Copyright</h4>
-                </div>
-                <div class="modal-body">
-                    <h2>Chem By Rika<small> v0.3.0</small></h2>
-                    <p>The synthesis routes all come from <a href="http://chemistrybydesign.oia.arizona.edu/"><em>Chemisty By Design</em></a>.</p>
-                    <p>Main Developer:<a href="https://github.com/RikaSugisawa">Rika</a></p>
-                    <p>Special thanks to:<a href="https://github.com/TooYoungTooSimp">TooYoungTooSimp</a> 黑大炮</p>
-                    <p><a href="https://github.com/RikaSugisawa/ChemByRika"><span class="label label-primary">Github</span></a> <a href="http://rika.tech/ChemByRika/"><span class="label label-default">Web version</span></a></p>
-                    
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary center-block" data-dismiss="modal">OK!</button>
-                </div>
+</md-content>
+<img style="position:fixed;top:100%;left:100%;height:auto;max-height:50%;max-width:50%;z-index:999;pointer-events:none;"
+     class="pull-right" align="right" id="pre"/>
+<div style="visibility: hidden" aria-labelledby="copyright">
+    <div class="md-dialog-container" id="myDialog">
+        <md-dialog layout-padding>
+
+            <div class="modal-header">
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+                <h4 class="modal-title text-center" id="copyright-title">Copyright</h4>
             </div>
-        </div>
+            <div class="modal-body">
+                <h2>Chem By Rika
+                    <small> v0.4.0</small>
+                </h2>
+                <p>The synthesis routes all come from <a href="http://chemistrybydesign.oia.arizona.edu/"><em>Chemisty
+                    By Design</em></a>.</p>
+                <p>Main Developer:<a href="https://github.com/RikaSugisawa">Rika</a></p>
+                <p>Special thanks to:<a href="https://github.com/TooYoungTooSimp">TooYoungTooSimp</a> 黑大炮</p>
+                <p><a href="https://github.com/RikaSugisawa/ChemByRika"><span
+                        class="label label-primary">Github</span></a>
+                    <a href="http://rika.tech/ChemByRika/"><span class="label label-default">Web version</span></a>
+                </p>
+            </div>
+        </md-dialog>
     </div>
-    <script>
+</div>
+<script>
 
-        
-        /*$.each(list,function(index,content){
-            $("#list-all").append('<li class="list-group-item">'+index+'</li>');
+
+    /*$.each(list,function(index,content){
+        $("#list-all").append('<li class="list-group-item">'+index+'</li>');
+    }
+    )*/
+    /*function onscroll() {
+
+        var num = Math.floor((GetPageScroll()['Y']) / $('.list-group').height() * $('.list-group').children().length + 0.5);
+        $('.list-group').children('.active').removeClass('active');
+        $('.list-group').children().eq(num).addClass('active');
+        if ($('.list-group').text() != '') {
+            $('img#pre').attr("src", 'data:image/png;base64,' + preview_json[$('.list-group').children('.active').val() + '.png']);
+            $('img#pre').on('load', function () {
+                $('img#pre').css('margin-left', -$('img#pre').width());
+                $('img#pre').css('margin-top', -$('img#pre').height());
+            });
+        } else {
+            $('img#pre').css('margin-left', 0);
+            $('img#pre').css('margin-top', 0);
+            $('.list-group').html('<div class="alert alert-warning" role="alert">There is no result.</div>');
         }
-        )*/
-        function onscroll() {
-            var num = Math.floor((GetPageScroll()['Y']) / $('.list-group').height() * $('.list-group').children().length + 0.5);
+    }
+
+    function over(obj) {
+
+        if (screen.height > 432) {//如果是电脑就加上，不是就不加
             $('.list-group').children('.active').removeClass('active');
-            $('.list-group').children().eq(num).addClass('active');
-            if ($('.list-group').text() != '') {
-                $('img#pre').attr("src", 'data:image/png;base64,' + preview_json[$('.list-group').children('.active').val() + '.png']);
-                $('img#pre').on('load', function () {
-                    $('img#pre').css('margin-left', -$('img#pre').width());
-                    $('img#pre').css('margin-top', -$('img#pre').height());
-                });
-            } else {
-                $('img#pre').css('margin-left', 0);
-                $('img#pre').css('margin-top', 0);
-                $('.list-group').html('<div class="alert alert-warning" role="alert">There is no result.</div>');
-            }
+            obj.addClass('active');
         }
-        function over(obj) {
-
-            if (screen.height > 432) {//如果是电脑就加上，不是就不加
-                $('.list-group').children('.active').removeClass('active');
-                obj.addClass('active');
-            }
-            if ($('.list-group').text() != '') {
-                $('img#pre').attr("src", 'data:image/png;base64,' + preview_json[$('.list-group').children('.active').val() + '.png']);
-                $('img#pre').on('load', function () {
-                    $('img#pre').css('margin-left', -$('img#pre').width());
-                    $('img#pre').css('margin-top', -$('img#pre').height());
-                });
-            } else {
-                $('img#pre').css('margin-left', 0);
-                $('img#pre').css('margin-top', 0);
-                $('.list-group').html('<div class="alert alert-warning" role="alert">There is no result.</div>');
-            }
-
+        if ($('.list-group').text() !== '') {
+            $('img#pre').attr("src", 'preview/' + $('.list-group').children('.active').val() + '.png');
+            $('img#pre').on('load', function () {
+                $('img#pre').css('margin-left', -$('img#pre').width());
+                $('img#pre').css('margin-top', -$('img#pre').height());
+            });
+        } else {
+            $('img#pre').css('margin-left', 0);
+            $('img#pre').css('margin-top', 0);
+            $('.list-group').html('<div class="alert alert-warning" role="alert">There is no result.</div>');
         }
-        function search() {
-            $("#list-all").html('');
-            for (var key in list) {
-                if (key.toLowerCase().indexOf($('input#search').val().toLowerCase()) > -1 && (
+
+    }*/
+
+    function search() {
+        $("#list-all").html('');
+        for (var key in list) {
+            if (key.toLowerCase().indexOf($('input#search').val().toLowerCase()) > -1 && (
                     $('#btn-fav').hasClass('btn-info') ? localStorage.fav.indexOf(key) > -1 : 1)
-                ) {
-                    var max = (detail[key][0] - 1) / 2;
-                    $("#list-all").append('<button type="button"  value="' + key + '" onmouseover="over($(this));" onmouseout="$(this).removeClass(\'active\')" onClick="mclick($(this));" class="list-group-item">' + key.split('(')[0] + '<small>(' + key.split('(')[1].split(')')[0] + ')</small><span class="badge">' + max + '</span></li>');
-                }
-            }
-            onscroll();
-        }
-        if (screen.height > 432) { $('.input-group').addClass('input-group-lg'); }//调节搜索框大小
-        $('#list-all').css('top', $('.input-group').height());   //调节列表顶端
-        function history() {//获取历史反应信息
-            $('input#search').val(''); $('#btn-fav').removeClass('btn-info');
-            $("#list-all").html('');
-            for (var key_time_int = localStorage.his.split('|').length - 1; key_time_int > 0; key_time_int--) {
-                var key_time = localStorage.his.split('|')[key_time_int - 1];
-                if (key_time == "") { continue; }
-                key = key_time.split(',')[0];
-                var time = new Date();
-                time.setTime(key_time.split(',')[1]);
-                datetime = time.getUTCFullYear() + '-' +
-                    (time.getUTCMonth() + 1) + '-' +
-                    time.getUTCDate() + 'T' +
-                    time.getUTCHours() + ':' +
-                    time.getUTCMinutes() + ':' +
-                    time.getUTCSeconds() + 'Z';
+            ) {
                 var max = (detail[key][0] - 1) / 2;
-                $("#list-all").append('<button type="button"  value="' + key + '" onmouseover="over($(this));" onmouseout="$(this).removeClass(\'active\')" onClick="mclick($(this));" class="list-group-item">' + key.split('(')[0] + '<small>(' + key.split('(')[1].split(')')[0] + ')</small><span class="badge">' + max + '</span> <span class="pull-right"><time class="timeago" datetime="' + datetime + '"></time>&nbsp;</span> </li>');
+                $("#list-all").append(
+                    '\
+<md-list-item class="secondary-button-padding _md-button-wrap md-with-secondary _md md-clickable" role="listitem"\
+              tabindex="-1">\
+    <div class="md-button md-no-style">\
+        <button class="md-no-style md-button md-ink-ripple" type="button" ng-transclude="" aria-label="' + key + '" onclick="mclick($(this));">\
+            <div class="md-ripple-container" style=""></div>\
+        </button>\
+        <div style="height:100%;display: none;width:15%;background:#e009;color:#fff;font-family:Roboto,Helvetica Neue,sans-serif" class="div-sure">Click again to Sure</div>\
+        <div class="md-list-item-inner">\
+            <p>' + key.split('(')[0] + '<small>(\
+    ' + key.split('(')[1].split(')')[0] + ')</small></p>\
+\
+        </div>\
+        <div class="md-secondary-container">\
+           <span class="badge">' + max + ' </span>\
+        </div>\
+    </div>\
+</md-list-item>'
+                );
             }
-            $('body').timeago('refresh');
-            onscroll();
+        }
+    }
+
+    function history() {//获取历史反应信息
+        $('input#search').val('');
+        $('#btn-fav').removeClass('btn-info');
+        $("#list-all").html('');
+        for (var key_time_int = localStorage.his.split('|').length - 1; key_time_int > 0; key_time_int--) {
+            var key_time = localStorage.his.split('|')[key_time_int - 1];
+            if (key_time == "") {
+                continue;
+            }
+            key = key_time.split(',')[0];
+            var time = new Date();
+            time.setTime(key_time.split(',')[1]);
+            datetime = time.getUTCFullYear() + '-' +
+                (time.getUTCMonth() + 1) + '-' +
+                time.getUTCDate() + 'T' +
+                time.getUTCHours() + ':' +
+                time.getUTCMinutes() + ':' +
+                time.getUTCSeconds() + 'Z';
+            var max = (detail[key][0] - 1) / 2;
+            $("#list-all").append('\
+<md-list-item class="secondary-button-padding _md-button-wrap md-with-secondary _md md-clickable" role="listitem"\
+              tabindex="-1">\
+    <div class="md-button md-no-style">\
+        <button class="md-no-style md-button md-ink-ripple" type="button" ng-transclude="" aria-label="' + key + '" onclick="mclick($(this));">\
+            <div class="md-ripple-container" style=""></div>\
+        </button>\
+        <div style="height:100%;display: none;width:15%;background:#e009;color:#fff;font-family:Roboto,Helvetica Neue,sans-serif" class="div-sure">Click again to Sure</div>\
+        <div class="md-list-item-inner">\
+            <p>' + key.split('(')[0] + '<small>(\
+    ' + key.split('(')[1].split(')')[0] + ')</small></p>\
+\
+        </div>\
+        <div class="md-secondary-container">\
+        <time datetime="' + datetime + '" class="timeago"></time>&nbsp;\
+           <span class="badge">' + max + ' </span>\
+        </div>\
+    </div>\
+</md-list-item>');
+        }
+        $('body').timeago('refresh');
+        onscroll();
+    }
+
+    function random() {
+        $("#list-all").html('');
+        var keys = [];
+        for (var key in list) {
+            keys.push(key);
+        }
+        var key = keys[Math.floor(Math.random() * keys.length)];
+        //$("#list-all").append('<button type="button" data-placement="top" data-trigger="focus" data-toggle="popover" data-content="&lt;img style=&quot;max-width:100%;&quot; src=&quot;./preview/'+key+'.png&quot;&gt;" data-html=true value="'+list[key]+'" onmouseover="$(this).popover(\'show\');" onmouseout="$(this).popover(\'hide\')" onClick="window.location.href=\'detail.html?para='+key+'\'" class="list-group-item">'+key+'</li>');
+        var max = (detail[key][0] - 1) / 2;
+        $("#list-all").append('\
+    <md-list-item class="secondary-button-padding _md-button-wrap md-with-secondary _md md-clickable" role="listitem"\
+              tabindex="-1">\
+    <div class="md-button md-no-style">\
+    <button class="md-no-style md-button md-ink-ripple" type="button" ng-transclude="" aria-label="' + key + '" onclick="mclick($(this));">\
+    <div class="md-ripple-container" style=""></div>\
+    </button>\
+    <div class="md-list-item-inner">\
+    <p>' + key.split('(')[0] + '<small>(\
+    ' + key.split('(')[1].split(')')[0] + ')</small></p>\
+    \
+    </div>\
+    <div class="md-secondary-container">\
+    <span class="badge">' + max + ' </span>\
+    </div>\
+    </div>\
+    </md-list-item>');
+        mclick($('button[aria-label="' + key + '"]'));
+        // onscroll();
+    }
+
+    //滚动条位置
+    /*function GetPageScroll() {
+        var x, y;
+        if (window.pageYOffset) {    // all except IE
+            y = window.pageYOffset;
+            x = window.pageXOffset;
+        } else if (document.documentElement && document.documentElement.scrollTop) {    // IE 6 Strict
+            y = document.documentElement.scrollTop;
+            x = document.documentElement.scrollLeft;
+        } else if (document.body) {    // all other IE
+            y = document.body.scrollTop;
+            x = document.body.scrollLeft;
+        }
+        return {X: x, Y: y};
+    }
+
+    function getJsonLength(jsonData) {  //获取json长度
+        var jsonLength = 0;
+        for (var item in jsonData) {
+            jsonLength++;
+        }
+        return jsonLength;
+    }*/
+
+    function fav() {
+        if ($('#btn-fav').hasClass('md-accent btn-info')) {
+            $('#btn-fav').removeClass('md-accent btn-info');
+
+        } else {
+            $('#btn-fav').addClass('md-accent btn-info');
         }
         search();
-        function random() {
-            $("#list-all").html('');
-            var keys = new Array();
-            for (var key in list) { keys.push(key); }
-            var key = keys[Math.floor(Math.random() * keys.length)];
-            //$("#list-all").append('<button type="button" data-placement="top" data-trigger="focus" data-toggle="popover" data-content="&lt;img style=&quot;max-width:100%;&quot; src=&quot;./preview/'+key+'.png&quot;&gt;" data-html=true value="'+list[key]+'" onmouseover="$(this).popover(\'show\');" onmouseout="$(this).popover(\'hide\')" onClick="window.location.href=\'detail.html?para='+key+'\'" class="list-group-item">'+key+'</li>');
-            var max = (detail[key][0] - 1) / 2;
-            $("#list-all").append('<button type="button"  value="' + key + '" onmouseover="over($(this));" onmouseout="$(this).removeClass(\'active\')" onClick="mclick($(this));" class="list-group-item">' + key.split('(')[0] + '<small>(' + key.split('(')[1].split(')')[0] + ')</small><span class="badge">' + max + '</span></li>');
-            onscroll();
+    }
+
+    function EnterDown(e) {
+        var keynum
+        if (window.event) // IE
+        {
+            keynum = e.keyCode
         }
-        //滚动条位置
-        function GetPageScroll() {
-            var x, y; if (window.pageYOffset) {    // all except IE
-                y = window.pageYOffset;
-                x = window.pageXOffset;
-            } else if (document.documentElement && document.documentElement.scrollTop) {    // IE 6 Strict
-                y = document.documentElement.scrollTop;
-                x = document.documentElement.scrollLeft;
-            } else if (document.body) {    // all other IE
-                y = document.body.scrollTop;
-                x = document.body.scrollLeft;
-            }
-            return { X: x, Y: y };
+        else if (e.which) // Netscape/Firefox/Opera
+        {
+            keynum = e.which
         }
-        function getJsonLength(jsonData) {  //获取json长度
-            var jsonLength = 0;
-            for (var item in jsonData) {
-                jsonLength++;
-            }
-            return jsonLength;
-        }
-        function fav() {
-            if ($('#btn-fav').hasClass('btn-info')) {
-                $('#btn-fav').removeClass('btn-info');
-            } else {
-                $('#btn-fav').addClass('btn-info');
-            }
+        if (keynum == 13) {
             search();
         }
-        function EnterDown(e) {
-            var keynum
-            if (window.event) // IE
-            {
-                keynum = e.keyCode
-            }
-            else if (e.which) // Netscape/Firefox/Opera
-            {
-                keynum = e.which
-            }
-            if (keynum == 13) { search(); }
+    }
+
+    function mclick(btn) {
+        $('md-list-item').removeClass('active');
+        if (btn.hasClass('active')) {
+            window.location.href = 'detail.html?para=' + btn.attr('aria-label').replace('\'', '\\\'');
+        } else {
+            $('button').removeClass('active');
+            btn.addClass('active');
+            btn.parent().parent().addClass('active');
+            //btn.parent().parent().css('background','#66ccff');
         }
-        function mclick(div) {
-            console.log(div);
-            if (div.hasClass('active')) {
-                window.location.href = 'detail.html?para=' + div.val().replace('\'', '\\\'');
-            } else {
-                div.addClass('active');
+
+        //$('img#pre').attr("src", 'preview/' + $('button.active').val() + '.png');
+        $('img#pre').attr("src", 'preview/' + btn.attr('aria-label') + '.png');
+        $('img#pre').on('load', function () {
+            $('img#pre').css('margin-left', -$('img#pre').width());
+            $('img#pre').css('margin-top', -$('img#pre').height());
+        });
+        return false;
+    }
+
+    $(document).ready(function () {
+        search();
+    });
+    angular.module('BlankApp', ['ngMaterial'])
+        .controller('AppCtrl', function ($scope, $mdDialog) {
+            $scope.status = '  ';
+            $scope.customFullscreen = false;
+
+            $scope.showAlert = function (ev) {
+                // Appending dialog to document.body to cover sidenav in docs app
+                // Modal dialogs should fully cover application
+                // to prevent interaction outside of dialog
+                $mdDialog.show(
+                    {
+                        contentElement: '#myDialog',
+                        parent: angular.element(document.body),
+                        targetEvent: ev,
+                        clickOutsideToClose: true
+                    }
+                );
             }
-            return false;
-        }
-    </script>
+        });
+</script>
 </body>
 </html>
